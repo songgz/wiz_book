@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Intro:</strong>
+  <%= @book.intro %>
+</p>
+
+<p>
+  <strong>Volumes:</strong>
+  <ul>
+    <% @book.volumes.each do |volume| %>
+      <li><a href="/"><%= volume.title %></a></li>
+        <ul>
+          <% volume.chapters.each do |chapter| %>
+            <li><a href="/chapters/<%= chapter.id %>"><%= chapter.title %></a></li>
+          <% end %>
+        </ul>
+    <% end %>
+  </ul>
+</p>
+
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>
