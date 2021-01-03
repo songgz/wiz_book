@@ -4,4 +4,8 @@ class Chapter
   field :cont, type: String
 
   belongs_to :volume
+
+  def content
+    cont.gsub(/\r\n/, '<br /><br />')
+  end
 end

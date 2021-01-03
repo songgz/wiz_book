@@ -3,5 +3,5 @@ class Book
   field :title, type: String
   field :intro, type: String
 
-  has_many :volumes, dependent: :delete
+  has_many :volumes, dependent: :destroy
 end

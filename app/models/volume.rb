@@ -4,5 +4,5 @@ class Volume
   field :intro, type: String
 
   belongs_to :book
-  has_many :chapters, dependent: :delete
+  has_many :chapters, dependent: :destroy
 end

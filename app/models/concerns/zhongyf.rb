@@ -1,7 +1,31 @@
+# coding: utf-8
 class Zhongyf
   attr_reader :book
 
-  def initialize(url)
+  def initialize(urls = [])
+    urls = get_books() if urls.blank?
+    urls.each do |url|
+      get_book(url)
+      p get_title
+      get_intro
+      get_volume
+      to_db
+    end
+  end
+
+  def get_books(url = 'http://www.zhongyf.com/books/guji/')
+    data = XmlHttp.get(url)
+    html = Nokogiri::HTML(data)
+    links = html.xpath('//table[@class="box"]//div[@class="daodu"]/u/li/a')
+    index = links.index {|l| l.attr('href') == '/books/guji/bcxbl/'}
+    books = []
+    links.each_with_index do |a, i|
+      books << 'http://www.zhongyf.com' + a.attr('href') if i > index
+    end
+    books
+  end
+
+  def get_book(url)
     data = XmlHttp.get(url)
     html = Nokogiri::HTML(data)
     @text = html.xpath('//table[@class="box"]')
